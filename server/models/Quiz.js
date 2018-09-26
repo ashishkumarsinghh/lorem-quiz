@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
-const schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 const QuizSchema = new Schema({
   title: String,
-  questions: Array,
   author: String
 });
 
