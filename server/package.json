@@ -1,0 +1,15 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "quiz api",
+  "main": "index.js",
+  "author": "ashish kumar singh",
+  "license": "MIT",
+  "dependencies": {
+    "hapi": "^17.6.0",
+    "nodemon": "^1.18.4"
+  },
+  "scripts": {
+    "start": "nodemon index.js"
+  }
+}
