@@ -1,37 +1,38 @@
-const hapi = require("hapi")
-const mongoose = require("mongoose")
-const dotenv = require("dotenv")
+const hapi = require("hapi");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const routes = require("./routes/");
 
 const server = hapi.server({
-    port: 4000, 
-    host: 'localhost'
-})
+  port: 4000,
+  host: "localhost"
+});
 
 const initVars = () => {
-    dotenv.config();
-}
+  dotenv.config();
+};
 
 const connectDB = () => {
-    mongoose.connect("mongodb://"+process.env.DBUSER+":"+
-    `${encodeURIComponent(process.env.DBPASS)}`+"@"+process.env.DBHOST, { useNewUrlParser: true });
-    mongoose.connection.once("open", () => {
-        console.log("connected to database.");
-    })
+  mongoose.connect(
+    "mongodb://" +
+      process.env.DBUSER +
+      ":" +
+      `${encodeURIComponent(process.env.DBPASS)}` +
+      "@" +
+      process.env.DBHOST,
+    { useNewUrlParser: true }
+  );
+  mongoose.connection.once("open", () => {
+    console.log("connected to database.");
+  });
 };
 
 const init = async () => {
-
-    initVars();
-    connectDB();
-    server.route({
-        method: "GET",
-        path: '/',
-        handler: (req, res) => {
-            return `<h1>Hello from Hapi !</h1>`;
-        }
-    })
-    await server.start()
-    console.log(`Server running at: ${server.info.uri}`);
-}
+  initVars();
+  connectDB();
+  server.route(routes);
+  await server.start();
+  console.log(`Server running at: ${server.info.uri}`);
+};
 
 init();
